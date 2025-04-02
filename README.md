@@ -1,18 +1,18 @@
-# 📘 CityTempTracker
+# CityTempTracker
 
-## 📆 Table of Contents
+## Table of Contents
 
-1. [Requirements](#1--requirements)  
-2. [Install dependencies](#2--install-dependencies)  
-3. [Running the application](#3--running-the-application)  
-4. [Environment settings](#4--environment-settings)  
-5. [Testing the application](#5--testing-the-application)  
-6. [Database](#6--database)  
-7. [Project structure](#7--project-structure)
+1. [Requirements](#1-requirements)
+2. [Install dependencies](#2-install-dependencies)
+3. [Running the application](#3-running-the-application)
+4. [Environment settings](#4-environment-settings)
+5. [Testing the application](#5-testing-the-application)
+6. [Database](#6-database)
+7. [Project structure](#7-project-structure)
 
 ---
 
-## 1. ✅ Requirements
+## 1. Requirements
 
 Make sure you have the following installed:
 
@@ -26,16 +26,16 @@ Make sure you have the following installed:
 
 ---
 
-## 2. 📥 Install dependencies
+## 2. Install dependencies
 
-### 💥 Backend (ASP.NET Core)
+### Backend (ASP.NET Core)
 
 ```bash
 cd CityTempTracker.Server
 dotnet restore
 ```
 
-### 🌐 Frontend (React + Vite)
+### Frontend (React + Vite)
 
 ```bash
 cd citytemptracker.client
@@ -44,9 +44,9 @@ npm install
 
 ---
 
-## 3. ▶️ Running the application
+## 3. Running the application
 
-### 📦 Backend
+### Backend
 
 ```bash
 cd CityTempTracker.Server
@@ -55,7 +55,7 @@ dotnet run
 
 Usually starts at `http://localhost:5192`
 
-### 💻 Frontend
+### Frontend
 
 ```bash
 cd citytemptracker.client
@@ -66,9 +66,9 @@ Opens in browser at `https://localhost:52361`
 
 ---
 
-## 4. ⚙️ Environment settings
+## 4. Environment settings
 
-### 🔐 API key (OpenWeatherMap)
+### API key (OpenWeatherMap)
 
 Add to `CityTempTracker.Server/appsettings.json`:
 
@@ -80,16 +80,16 @@ Add to `CityTempTracker.Server/appsettings.json`:
 
 ---
 
-## 5. 🧪 Testing the application
+## 5. Testing the application
 
-### ↻ Backend tests (xUnit)
+### Backend tests (xUnit)
 
 ```bash
 cd CityTempTracker.Tests
 dotnet test
 ```
 
-### 🔬 Frontend tests (Vitest + Testing Library)
+### Frontend tests (Vitest + Testing Library)
 
 ```bash
 cd citytemptracker.client
@@ -104,7 +104,7 @@ npx vitest
 
 ---
 
-## 6. 🗄️ Database (SQLite)
+## 6. Database
 
 - SQLite is used as a data store
 - Run the following to migrate and create the DB:
@@ -120,7 +120,7 @@ dotnet ef database update
 
 ---
 
-## 7. 📂 Project structure
+## 7. Project structure
 
 ```plaintext
 CityTempTracker/
@@ -141,7 +141,3 @@ CityTempTracker/
 ├── CityTempTracker.Tests/        ⬅ xUnit backend tests
 └── README.md                     ⬅ This file
 ```
-
----
-
-> ✉ Tip: Use `npm run test` or `dotnet test` to verify code quality before deployment.
