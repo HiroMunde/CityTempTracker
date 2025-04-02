@@ -1,32 +1,32 @@
 # 📘 CityTempTracker
 
-## 📆 Innehåll
+## 📆 Table of Contents
 
-1. [Förutsättningar](#1-förutsättningar)
-2. [Installera beroenden](#2-installera-beroenden)
-3. [Köra applikationen](#3-köra-applikationen)
-4. [Miljöinställningar](#4-miljöinställningar)
-5. [Testa applikationen](#5-testa-applikationen)
-6. [Databas](#6-databas)
-7. [Strukturöversikt](#7-strukturöversikt)
-
----
-
-## 1. ✅ Förutsättningar
-
-Se till att du har följande installerat:
-
-| Program                                                              | Version                              |
-| -------------------------------------------------------------------- | ------------------------------------ |
-| [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) | 6.0.x                                |
-| [Node.js](https://nodejs.org/)                                       | ≥ 18                                 |
-| [npm](https://www.npmjs.com/)                                        | ≥ 8                                  |
-| [SQLite](https://www.sqlite.org/index.html) *(valfritt CLI)*         | valfri                               |
-| **Valfri IDE**                                                       | Visual Studio 2022 / Rider / VS Code |
+1. [Requirements](#1--requirements)  
+2. [Install dependencies](#2--install-dependencies)  
+3. [Running the application](#3--running-the-application)  
+4. [Environment settings](#4--environment-settings)  
+5. [Testing the application](#5--testing-the-application)  
+6. [Database](#6--database)  
+7. [Project structure](#7--project-structure)
 
 ---
 
-## 2. 📥 Installera beroenden
+## 1. ✅ Requirements
+
+Make sure you have the following installed:
+
+| Tool                                                                 | Version               |
+|----------------------------------------------------------------------|------------------------|
+| [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) | 6.0.x                 |
+| [Node.js](https://nodejs.org/)                                       | ≥ 18                  |
+| [npm](https://www.npmjs.com/)                                        | ≥ 8                   |
+| [SQLite](https://www.sqlite.org/index.html) *(optional CLI)*         | optional              |
+| **Any IDE**                                                          | Visual Studio / Rider / VS Code |
+
+---
+
+## 2. 📥 Install dependencies
 
 ### 💥 Backend (ASP.NET Core)
 
@@ -44,7 +44,7 @@ npm install
 
 ---
 
-## 3. ▶️ Köra applikationen
+## 3. ▶️ Running the application
 
 ### 📦 Backend
 
@@ -53,7 +53,7 @@ cd CityTempTracker.Server
 dotnet run
 ```
 
-Startar på t.ex. `http://localhost:5192`
+Usually starts at `http://localhost:5192`
 
 ### 💻 Frontend
 
@@ -62,41 +62,41 @@ cd citytemptracker.client
 npm run dev
 ```
 
-Frontend öppnas på t.ex. `https://localhost:52361`
+Opens in browser at `https://localhost:52361`
 
 ---
 
-## 4. ⚙️ Miljöinställningar
+## 4. ⚙️ Environment settings
 
-### 🔐 API-nyckel (OpenWeatherMap)
+### 🔐 API key (OpenWeatherMap)
 
-Lägg till i `CityTempTracker.Server/appsettings.json`:
+Add to `CityTempTracker.Server/appsettings.json`:
 
 ```json
 "OpenWeatherMap": {
-  "ApiKey": "DIN_API_NYCKEL_HÄR"
+  "ApiKey": "YOUR_API_KEY_HERE"
 }
 ```
 
 ---
 
-## 5. 🧪 Testa applikationen
+## 5. 🧪 Testing the application
 
-### ↻ Backendtester (xUnit)
+### ↻ Backend tests (xUnit)
 
 ```bash
 cd CityTempTracker.Tests
 dotnet test
 ```
 
-### 🔬 Frontendtester (Vitest + Testing Library)
+### 🔬 Frontend tests (Vitest + Testing Library)
 
 ```bash
 cd citytemptracker.client
 npx vitest run
 ```
 
-eller watch-läge:
+or watch mode:
 
 ```bash
 npx vitest
@@ -104,10 +104,10 @@ npx vitest
 
 ---
 
-## 6. 🗄️ Databas (SQLite)
+## 6. 🗄️ Database (SQLite)
 
-- SQLite används som datalager
-- Databasen migreras med:
+- SQLite is used as a data store
+- Run the following to migrate and create the DB:
 
 ```bash
 cd CityTempTracker.Server
@@ -115,18 +115,18 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-- `Cities` fylls initialt automatiskt
-- `WeatherData` uppdateras var minut
+- `Cities` table is seeded automatically
+- `WeatherData` is updated every minute
 
 ---
 
-## 7. 📂 Strukturöversikt
+## 7. 📂 Project structure
 
 ```plaintext
 CityTempTracker/
-├── CityTempTracker.Server/        ⬅ ASP.NET Core-backend (.NET 6)
+├── CityTempTracker.Server/        ⬅ ASP.NET Core backend (.NET 6)
 │   ├── Controllers/
-│   ├── Services/                  ⬅ WeatherService, scheduler
+│   ├── Services/                  ⬅ WeatherService, background tasks
 │   ├── Data/                      ⬅ DbContext, Models
 │   └── appsettings.json
 │
@@ -138,10 +138,10 @@ CityTempTracker/
 │   │   └── main.tsx
 │   └── vite.config.js
 │
-├── CityTempTracker.Tests/        ⬅ xUnit-testprojekt för backend
-└── README.md                     ⬅ Denna fil
+├── CityTempTracker.Tests/        ⬅ xUnit backend tests
+└── README.md                     ⬅ This file
 ```
 
 ---
 
-> ✉ Tips: Använd `npm run test` eller `dotnet test` för att verifiera kodkvalitet innan du deployar.
+> ✉ Tip: Use `npm run test` or `dotnet test` to verify code quality before deployment.
