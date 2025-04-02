@@ -11,9 +11,6 @@ obj/
 # ASP.NET secrets
 secrets.json
 
-# Entity Framework migrations history
-Migrations/
-
 # Node
 node_modules/
 dist/
