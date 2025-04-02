@@ -4,10 +4,10 @@
 
 1. [Requirements](#1-requirements)
 2. [Install dependencies](#2-install-dependencies)
-3. [Running the application](#3-running-the-application)
-4. [Environment settings](#4-environment-settings)
+3. [Environment settings](#3-environment-settings)
+4. [Database](#4-database)
 5. [Testing the application](#5-testing-the-application)
-6. [Database](#6-database)
+6. [Running the application](#6-running-the-application)
 7. [Project structure](#7-project-structure)
 
 ---
@@ -44,29 +44,7 @@ npm install
 
 ---
 
-## 3. Running the application
-
-### Backend
-
-```bash
-cd CityTempTracker.Server
-dotnet run
-```
-
-Usually starts at `http://localhost:5192`
-
-### Frontend
-
-```bash
-cd citytemptracker.client
-npm run dev
-```
-
-Opens in browser at `https://localhost:52361`
-
----
-
-## 4. Environment settings
+## 3. Environment settings
 
 ### API key (OpenWeatherMap)
 
@@ -89,6 +67,22 @@ Create `CityTempTracker.Server/appsettings.json`:
     "AllowedHosts": "*"
 }
 ```
+
+---
+
+## 4. Database
+
+- SQLite is used as a data store
+- Run the following to migrate and create the DB:
+
+```bash
+cd CityTempTracker.Server
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+```
+
+- `Cities` table is seeded automatically
+- `WeatherData` is updated every minute
 
 ---
 
@@ -116,19 +110,25 @@ npx vitest
 
 ---
 
-## 6. Database
+## 6. Running the application
 
-- SQLite is used as a data store
-- Run the following to migrate and create the DB:
+### Backend
 
 ```bash
 cd CityTempTracker.Server
-dotnet ef migrations add InitialCreate
-dotnet ef database update
+dotnet run
 ```
 
-- `Cities` table is seeded automatically
-- `WeatherData` is updated every minute
+Usually starts at `http://localhost:5192`
+
+### Frontend
+
+```bash
+cd citytemptracker.client
+npm run dev
+```
+
+Opens in browser at `https://localhost:52361`
 
 ---
 
@@ -151,5 +151,7 @@ CityTempTracker/
 │   └── vite.config.js
 │
 ├── CityTempTracker.Tests/        ⬅ xUnit backend tests
-└── README.md                     ⬅ This file
+└── README.md                 ⬅ This file
 ```
+
+---
