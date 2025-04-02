@@ -1,0 +1,33 @@
+﻿# .NET
+bin/
+obj/
+*.user
+*.suo
+*.pdb
+*.db
+*.sqlite
+.vs/
+
+# ASP.NET secrets
+secrets.json
+
+# Entity Framework migrations history
+Migrations/
+
+# Node
+node_modules/
+dist/
+.vite/
+.env
+*.log
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# VS Code & Rider
+.vscode/
+.idea/
+
+# Test coverage
+coverage/
