@@ -38,7 +38,7 @@ dotnet restore
 ### Frontend (React + Vite)
 
 ```bash
-cd citytemptracker.client
+cd CityTempTracker.Client
 npm install
 ```
 
@@ -70,11 +70,23 @@ Opens in browser at `https://localhost:52361`
 
 ### API key (OpenWeatherMap)
 
-Add to `CityTempTracker.Server/appsettings.json`:
+Create `CityTempTracker.Server/appsettings.json`:
 
 ```json
-"OpenWeatherMap": {
-  "ApiKey": "YOUR_API_KEY_HERE"
+{
+    "ConnectionStrings": {
+        "DefaultConnection": "Data Source=weather.db"
+    },
+    "OpenWeatherMap": {
+        "ApiKey": "YOUR_API_KEY_HERE"
+    },
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "AllowedHosts": "*"
 }
 ```
 
