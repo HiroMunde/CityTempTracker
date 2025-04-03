@@ -7,7 +7,7 @@ namespace CityTempTracker.Server.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<City> Cities { get; set; }
-        public DbSet<WeatherData> WeatherData { get; set; }
+        public DbSet<City> Cities { get; set; } = null!;
+        public DbSet<WeatherData> WeatherData { get; set; } = null!;
     }
 }

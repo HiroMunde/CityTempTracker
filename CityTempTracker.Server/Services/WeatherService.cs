@@ -24,28 +24,36 @@ namespace CityTempTracker.Server.Services
 
             foreach (var city in cities)
             {
-                var response = await _httpClient.GetStringAsync($"https://api.openweathermap.org/data/2.5/weather?q={city.Name},{city.Country}&appid={apiKey}&units=metric");
-                var data = JsonSerializer.Deserialize<WeatherApiResponse>(
-                    response,
-                    new JsonSerializerOptions
+                try
+                {
+                    var response = await _httpClient.GetStringAsync(
+                        $"https://api.openweathermap.org/data/2.5/weather?q={city.Name},{city.Country}&appid={apiKey}&units=metric");
+                    var data = JsonSerializer.Deserialize<WeatherApiResponse>(
+                        response,
+                        new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        });
+
+                    if (data?.Main == null)
                     {
-                        PropertyNameCaseInsensitive = true
+                        Console.WriteLine($"[WARNING] Empty weather response for {city.Name}, {city.Country}");
+                        continue;
+                    }
+
+                    _db.WeatherData.Add(new WeatherData
+                    {
+                        CityId = city.Id,
+                        Temperature = data.Main.Temp,
+                        Timestamp = DateTime.UtcNow
                     });
 
-                if (data?.Main == null)
-                {
-                    Console.WriteLine($"[WARNING] Empty weather response for {city.Name}, {city.Country}");
-                    continue;
+                    Console.WriteLine($"[INFO] Saved temperature for {city.Name}: {data.Main.Temp} °C");
                 }
-
-                _db.WeatherData.Add(new WeatherData
+                catch (Exception ex)
                 {
-                    CityId = city.Id,
-                    Temperature = data.Main.Temp,
-                    Timestamp = DateTime.UtcNow
-                });
-
-                Console.WriteLine($"[INFO] Saved temperature for {city.Name}: {data.Main.Temp} °C");
+                    Console.WriteLine($"[ERROR] Failed to fetch weather for {city.Name}, {city.Country}: {ex.Message}");
+                }
             }
             await _db.SaveChangesAsync();
         }

@@ -15,9 +15,17 @@ namespace CityTempTracker.Server.BackgroundTasks
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                using var scope = _scopeFactory.CreateScope();
-                var weatherService = scope.ServiceProvider.GetRequiredService<IWeatherService>();
-                await weatherService.UpdateWeatherAsync();
+                try
+                {
+                    using var scope = _scopeFactory.CreateScope();
+                    var weatherService = scope.ServiceProvider.GetRequiredService<IWeatherService>();
+                    await weatherService.UpdateWeatherAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] Weather update failed: {ex.Message}");
+                }
+
                 await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
         }

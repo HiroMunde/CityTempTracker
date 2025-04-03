@@ -12,7 +12,7 @@ public class WeatherServiceTests
     public async Task UpdateWeatherAsync_SavesWeatherData_WhenApiReturnsValidResponse()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .UseInMemoryDatabase($"WeatherDb_{Guid.NewGuid()}")
             .Options;
 
         using var db = new AppDbContext(options);
@@ -36,11 +36,12 @@ public class WeatherServiceTests
         Assert.Equal(12.3, saved.Temperature);
         Assert.Equal(1, saved.CityId);
     }
+    
     [Fact]
     public async Task UpdateWeatherAsync_DoesNotSave_WhenApiReturnsEmptyMain()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .UseInMemoryDatabase($"WeatherDb_{Guid.NewGuid()}")
             .Options;
 
         using var db = new AppDbContext(options);
@@ -61,5 +62,30 @@ public class WeatherServiceTests
 
         Assert.Empty(db.WeatherData);
     }
+    
+    [Fact]
+    public async Task UpdateWeatherAsync_DoesNotThrow_OnApiFailure()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase($"WeatherDb_{Guid.NewGuid()}")
+            .Options;
 
+        using var db = new AppDbContext(options);
+        db.Cities.Add(new City { Id = 1, Name = "Stockholm", Country = "SE" });
+        db.SaveChanges();
+
+        var mockHttp = new HttpClient(new ErrorResponseHandler());
+        var config = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                { "OpenWeatherMap:ApiKey", "dummy" }
+            })
+            .Build();
+
+        var service = new WeatherService(mockHttp, db, config);
+
+        var ex = await Record.ExceptionAsync(() => service.UpdateWeatherAsync());
+        Assert.Null(ex);
+        Assert.Empty(db.WeatherData);
+    }
 }
