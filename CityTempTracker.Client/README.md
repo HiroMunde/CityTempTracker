@@ -1,21 +1,21 @@
-# Testdokumentation för CityTempTracker.Client
+# Test Documentation for CityTempTracker.Client
 
-Detta dokument beskriver de olika testerna som finns i projektet [CityTempTracker.Client](https://github.com/HiroMunde/CityTempTracker/tree/master/CityTempTracker.Client).
+This document describes the tests implemented in the [CityTempTracker.Client](https://github.com/HiroMunde/CityTempTracker/tree/master/CityTempTracker.Client) project.
 
-## Översikt
+## Overview
 
-Projektet använder [Vitest](https://vitest.dev/) som testverktyg för att säkerställa funktionaliteten hos React-komponenterna. Tester är placerade i `src/pages`-katalogen och följer namngivningskonventionen `KomponentNamn.test.tsx`.
+The project uses [Vitest](https://vitest.dev/) as the testing framework to verify the functionality of React components. Tests are located in the `src/pages` directory and follow the naming convention `ComponentName.test.tsx`.
 
-## Tester
+## Tests
 
 ### Dashboard.test.tsx
 
-Denna testfil innehåller enhetstester för `Dashboard`-komponenten. Testerna verifierar följande funktionaliteter:
+This test file contains unit tests for the `Dashboard` component. The tests verify the following functionalities:
 
-1. **Renderar dashboard-rubrik och stadsvalskomponent:**
-   - Säkerställer att `Dashboard`-komponenten renderar en `combobox` (dropdown) för att välja stad.
+1. **Renders dashboard heading and city selector:**
+   - Ensures the `Dashboard` component renders a `combobox` (dropdown) for selecting a city.
 
-   **Testimplementering:**
+   **Test Implementation:**
    ```tsx
    test("Renders dashboard heading and city selector", async () => {
        render(<Dashboard />);
@@ -25,11 +25,11 @@ Denna testfil innehåller enhetstester för `Dashboard`-komponenten. Testerna ve
    });
    ```
 
-2. **Uppdaterar diagrammet när en stad väljs:**
-   - Verifierar att när en stad väljs från dropdown-menyn, uppdateras diagrammet med temperaturdata för den valda staden.
-   - Testet mockar API-anrop för att hämta väderdata och använder `fireEvent` för att simulera användarinteraktion.
+2. **Updates chart when a city is selected:**
+   - Verifies that when a city is selected from the dropdown, the chart updates with temperature data for the selected city.
+   - The test mocks API calls to fetch weather data and uses `fireEvent` to simulate user interaction.
 
-   **Testimplementering:**
+   **Test Implementation:**
    ```tsx
    test("Updates chart when a city is selected", async () => {
        render(<Dashboard />);
@@ -42,14 +42,14 @@ Denna testfil innehåller enhetstester för `Dashboard`-komponenten. Testerna ve
    });
    ```
 
-## Mockning av moduler
+## Module Mocking
 
-För att isolera testerna och undvika beroenden till externa API:er används mockning:
+To isolate the tests and avoid dependencies on external APIs, module mocking is used:
 
-- **Mockning av `fetchCities` från `cityApi`:**
-  - Returnerar en lista med exempelstäder för att simulera API-svaret.
+- **Mocking `fetchCities` from `cityApi`:**
+  - Returns a list of sample cities to simulate the API response.
 
-  **Mockimplementering:**
+  **Mock Implementation:**
   ```tsx
   vi.mock("../api/cityApi", () => ({
       fetchCities: () =>
@@ -60,10 +60,10 @@ För att isolera testerna och undvika beroenden till externa API:er används moc
   }));
   ```
 
-- **Mockning av `fetchWeatherData` från `weatherApi`:**
-  - Returnerar exempeldata för väder för att simulera API-svaret.
+- **Mocking `fetchWeatherData` from `weatherApi`:**
+  - Returns sample weather data to simulate the API response.
 
-  **Mockimplementering:**
+  **Mock Implementation:**
   ```tsx
   vi.mock("../api/weatherApi", () => ({
       fetchWeatherData: vi.fn(() =>
@@ -85,20 +85,20 @@ För att isolera testerna och undvika beroenden till externa API:er används moc
   }));
   ```
 
-## Testkonfiguration
+## Test Configuration
 
-Projektet använder `vitest.config.ts` för att konfigurera testmiljön. Eventuella specifika inställningar för testning, såsom mockning av moduler eller globala variabler, hanteras i denna fil.
+The project uses `vitest.config.ts` to configure the test environment. Any specific test setup, such as module mocks or global variables, is handled in this file.
 
-## Körning av tester
+## Running the Tests
 
-För att köra testerna, använd följande kommando i projektets rotkatalog:
+To run the tests, use the following command in the project root:
 
 ```bash
 npm test
 ```
 
-Detta kommando kör alla testfiler och visar resultatet i terminalen.
+This command will execute all test files and display the results in the terminal.
 
 ---
 
-Denna dokumentation syftar till att ge en översikt över de befintliga testerna i projektet och underlätta förståelsen för deras syfte och implementering.
+This documentation aims to provide an overview of the existing tests in the project and help developers understand their purpose and implementation.
