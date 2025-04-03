@@ -18,3 +18,15 @@ test("renders city options", async () => {
     expect(screen.getByText("Paris, FR")).toBeInTheDocument();
   });
 });
+
+test("calls onSelect with selected city id", async () => {
+    const handleSelect = vi.fn();
+    render(<CitySelector onSelect={handleSelect} />);
+    const select = (await screen.findByRole("combobox")) as HTMLSelectElement;
+    await waitFor(() => screen.getByText("Paris, FR"));
+
+    select.value = "2";
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+
+    expect(handleSelect).toHaveBeenCalledWith(2);
+});
