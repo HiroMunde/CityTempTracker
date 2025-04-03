@@ -1,6 +1,6 @@
 # CityTempTracker.Tests
 
-This project contains all unit and integration tests for the [CityTempTracker](https://github.com/HiroMunde/CityTempTracker) backend.
+This project contains all tests for the [CityTempTracker](https://github.com/HiroMunde/CityTempTracker) backend.
 
 ---
 
