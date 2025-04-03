@@ -1,4 +1,4 @@
-# Test Documentation for CityTempTracker.Client
+# CityTempTracker.Client
 
 This document describes the tests implemented in the [CityTempTracker.Client](https://github.com/HiroMunde/CityTempTracker/tree/master/CityTempTracker.Client) project.
 
