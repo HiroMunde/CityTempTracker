@@ -1,10 +1,10 @@
-# ✅ CityTempTracker.Tests
+# CityTempTracker.Tests
 
 This project contains all unit and integration tests for the [CityTempTracker](https://github.com/HiroMunde/CityTempTracker) backend.
 
 ---
 
-## 📁 Test Structure
+## Test Structure
 
 ```plaintext
 CityTempTracker.Tests/
@@ -21,21 +21,21 @@ CityTempTracker.Tests/
 
 ---
 
-## 🔍 Test Categories
+## Test Categories
 
-### ✅ `CityControllerTests.cs`
+### `CityControllerTests.cs`
 
 - Verifies that all cities are returned
 - Uses in-memory SQLite
 - Supports validation of API return shape (anonymous objects)
 
-### ✅ `WeatherControllerTests.cs`
+### `WeatherControllerTests.cs`
 
 - Returns weather history for a city
 - Handles unknown city ID (returns empty list)
 - Uses in-memory SQLite and controller instance directly
 
-### ✅ `WeatherServiceTests.cs`
+### `WeatherServiceTests.cs`
 
 - Tests that weather data is saved to the database
 - Handles null/invalid API responses
@@ -44,14 +44,14 @@ CityTempTracker.Tests/
   - `DoesNotSave_WhenApiReturnsEmptyMain`
   - `UpdateWeatherAsync_DoesNotThrow_OnApiFailure`
 
-### ✅ `WeatherUpdaterTests.cs`
+### `WeatherUpdaterTests.cs`
 
 - Tests that the background service:
   - Triggers weather updates regularly
   - Does not crash when `IWeatherService` throws
 - Uses mock of `IServiceScopeFactory`
 
-### ✅ `SeedDataTests.cs`
+### `SeedDataTests.cs`
 
 - Ensures seed logic:
   - Adds cities only when the DB is empty
@@ -59,7 +59,7 @@ CityTempTracker.Tests/
 
 ---
 
-## 🧪 Running tests
+## Running tests
 
 From the root of the repo:
 
@@ -76,7 +76,7 @@ dotnet test --filter FullyQualifiedName~WeatherServiceTests
 
 ---
 
-## 💬 Notes
+## Notes
 
 - All tests use the in-memory SQLite provider (`UseInMemoryDatabase`)
 - No external dependencies (e.g. real API calls) are invoked
