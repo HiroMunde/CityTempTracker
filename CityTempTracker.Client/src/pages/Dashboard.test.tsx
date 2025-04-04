@@ -1,4 +1,4 @@
-﻿import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+﻿import { render, screen, waitFor } from "@testing-library/react";
 import { test, vi, expect } from "vitest";
 import "@testing-library/jest-dom";
 
@@ -18,25 +18,6 @@ vi.mock("../api/cityApi", () => ({
             { id: 1, name: "Stockholm", country: "SE" },
             { id: 2, name: "Paris", country: "FR" },
         ]),
-}));
-
-vi.mock("../api/weatherApi", () => ({
-    fetchWeatherData: vi.fn(() =>
-        Promise.resolve([
-            {
-                timestamp: new Date().toISOString(),
-                temperature: 12.3,
-                name: "Stockholm",
-                country: "SE",
-            },
-            {
-                timestamp: new Date(Date.now() - 60000).toISOString(),
-                temperature: 14.7,
-                name: "Stockholm",
-                country: "SE",
-            },
-        ])
-    ),
 }));
 
 import Dashboard from "../pages/Dashboard";
