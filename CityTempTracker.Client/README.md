@@ -1,104 +1,84 @@
 # CityTempTracker.Client
 
-This document describes the tests implemented in the [CityTempTracker.Client](https://github.com/HiroMunde/CityTempTracker/tree/master/CityTempTracker.Client) project.
+This project contains unit tests for React components in a weather dashboard application. Tests are written using [Vitest](https://vitest.dev/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/).
 
-## Overview
+## Test Structure
 
-The project uses [Vitest](https://vitest.dev/) as the testing framework to verify the functionality of React components. Tests are located in the `src/pages` directory and follow the naming convention `ComponentName.test.tsx`.
+```plaintext
+CityTempTracker.Client/
+└── src/
+    ├── components/
+    │   ├── CitySelector.test.tsx       # Unit tests for CitySelector component
+    │   └── TemperatureChart.test.tsx   # Unit tests for TemperatureChart component
+    └── pages/
+        └── Dashboard.test.tsx          # Integration tests for the Dashboard page
+```
 
-## Tests
+---
 
-### Dashboard.test.tsx
+## Dashboard.test.tsx
 
-This test file contains unit tests for the `Dashboard` component. The tests verify the following functionalities:
+### Purpose
 
-1. **Renders dashboard heading and city selector:**
-   - Ensures the `Dashboard` component renders a `combobox` (dropdown) for selecting a city.
+Tests the `Dashboard` page, including integration of `CitySelector` and `TemperatureChart`.
 
-   **Test Implementation:**
-   ```tsx
-   test("Renders dashboard heading and city selector", async () => {
-       render(<Dashboard />);
-       await waitFor(() => {
-           expect(screen.getByRole("combobox")).toBeInTheDocument();
-       });
-   });
-   ```
+### Mocked Modules
 
-2. **Updates chart when a city is selected:**
-   - Verifies that when a city is selected from the dropdown, the chart updates with temperature data for the selected city.
-   - The test mocks API calls to fetch weather data and uses `fireEvent` to simulate user interaction.
+- `recharts`: `ResponsiveContainer` is replaced with a static `<div>` of fixed size.
+- `../api/cityApi`: Returns mocked city data.
+- `../api/weatherApi`: Returns mocked weather data.
 
-   **Test Implementation:**
-   ```tsx
-   test("Updates chart when a city is selected", async () => {
-       render(<Dashboard />);
+### Tests
 
-       const select = await screen.findByRole("combobox");
-       fireEvent.change(select, { target: { value: "1" } });
+- Renders the component and ensures the city dropdown appears.
+- Updates the chart when a city is selected and verifies temperature data is rendered.
 
-       const maxLine = await screen.findByTestId("max-line");
-       expect(maxLine).toBeInTheDocument();
-   });
-   ```
+---
 
-## Module Mocking
+## CitySelector.test.tsx
 
-To isolate the tests and avoid dependencies on external APIs, module mocking is used:
+### Purpose
 
-- **Mocking `fetchCities` from `cityApi`:**
-  - Returns a list of sample cities to simulate the API response.
+Tests the `CitySelector` component.
 
-  **Mock Implementation:**
-  ```tsx
-  vi.mock("../api/cityApi", () => ({
-      fetchCities: () =>
-          Promise.resolve([
-              { id: 1, name: "Stockholm", country: "SE" },
-              { id: 2, name: "Paris", country: "FR" },
-          ]),
-  }));
-  ```
+### Mocked Modules
 
-- **Mocking `fetchWeatherData` from `weatherApi`:**
-  - Returns sample weather data to simulate the API response.
+- `../api/cityApi`: Returns mocked city data.
 
-  **Mock Implementation:**
-  ```tsx
-  vi.mock("../api/weatherApi", () => ({
-      fetchWeatherData: vi.fn(() =>
-          Promise.resolve([
-              {
-                  timestamp: new Date().toISOString(),
-                  temperature: 12.3,
-                  name: "Stockholm",
-                  country: "SE",
-              },
-              {
-                  timestamp: new Date(Date.now() - 60000).toISOString(),
-                  temperature: 14.7,
-                  name: "Stockholm",
-                  country: "SE",
-              },
-          ])
-      ),
-  }));
-  ```
+### Tests
 
-## Test Configuration
+- Renders the list of city options.
+- Calls `onSelect` with the selected city ID when a selection is made.
 
-The project uses `vitest.config.ts` to configure the test environment. Any specific test setup, such as module mocks or global variables, is handled in this file.
+---
+
+## TemperatureChart.test.tsx
+
+### Purpose
+
+Tests the `TemperatureChart` component.
+
+### Setup
+
+- A global mock for `ResizeObserver` is defined due to `recharts` dependency on it.
+
+### Tests
+
+- Renders without crashing.
+
+---
 
 ## Running the Tests
-
-To run the tests, use the following command in the project root:
 
 ```bash
 npx vitest run
 ```
 
-This command will execute all test files and display the results in the terminal.
-
 ---
 
-This documentation aims to provide an overview of the existing tests in the project and help developers understand their purpose and implementation.
+## Technologies Used
+
+- **Vitest** – test runner
+- **React Testing Library** – component rendering and DOM interaction
+- **jest-dom** – extended DOM matchers
+- **vi.mock** – mocking API calls and third-party components
