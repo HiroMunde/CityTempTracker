@@ -94,7 +94,7 @@ The project uses `vitest.config.ts` to configure the test environment. Any speci
 To run the tests, use the following command in the project root:
 
 ```bash
-npm test
+npx vitest run
 ```
 
 This command will execute all test files and display the results in the terminal.
