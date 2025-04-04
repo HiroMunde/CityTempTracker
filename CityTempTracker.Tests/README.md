@@ -16,7 +16,7 @@ CityTempTracker.Tests/
 ├── WeatherControllerTests.cs           # Tests the weather API controller
 ├── WeatherServiceTests.cs              # Unit tests for WeatherService (with mock HTTP)
 ├── WeatherUpdaterTests.cs              # Background task scheduler tests
-├── SeedDataTests.cs                    # Tests the initial seeding logic
+└── SeedDataTests.cs                    # Tests the initial seeding logic
 ```
 
 ---
