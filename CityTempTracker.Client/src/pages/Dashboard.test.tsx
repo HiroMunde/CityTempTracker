@@ -7,7 +7,7 @@ vi.mock("recharts", async () => {
     return {
         ...actual,
         ResponsiveContainer: ({ children }: { children: React.ReactNode }) => (
-            <div>{children}</div>
+            <div style={{ width: 800, height: 400 }}>{children}</div>
         ),
     };
 });
@@ -47,13 +47,3 @@ test("Renders dashboard heading and city selector", async () => {
         expect(screen.getByRole("combobox")).toBeInTheDocument();
     });
 });
-
-// test("Updates chart when a city is selected", async () => {
-//     render(<Dashboard />);
-//
-//     const select = await screen.findByRole("combobox");
-//     fireEvent.change(select, { target: { value: "1" } });
-//
-//     const maxLine = await screen.findByTestId("max-line");
-//     expect(maxLine).toBeInTheDocument();
-// });
